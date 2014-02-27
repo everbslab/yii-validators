@@ -12,6 +12,11 @@ class CAssemblaLogRoute extends CLogRoute {
     public $apiKey = '';
 
     /**
+     * @var string space ID in Assembla
+     */
+	public $assemblaSpace;
+
+    /**
      * @var string X-Api-Secret
      */
     public $apiSecret = '';
@@ -72,7 +77,7 @@ class CAssemblaLogRoute extends CLogRoute {
         );
 
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_URL, 'http://api.assembla.com/v1/spaces/virtual-health/tickets.xml');
+        curl_setopt($ch, CURLOPT_URL, 'http://api.assembla.com/v1/spaces/' . $this->assemblaSpace .'/tickets.xml');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_POSTFIELDS, CJSON::encode($message));
         $answer = curl_exec($ch);
